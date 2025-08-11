@@ -1,10 +1,35 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import Link from "next/link";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import { useForm } from "react-hook-form";
+import apiClient from "@/lib/apiClient";
+import { useRouter } from "next/navigation";
 
 const Signup = () => {
+
+  const router = useRouter();
+
+   // 登録処理🤗
+   const handleSignUp = async () => {
+    try {
+      await apiClient.post("/api/auth/register", {
+        username,
+        email, //useStateで保持しているか、react-hook-formで保持しているかどちらかになります🤗
+        password,
+      });
+
+      // 登録成功後画面をログイン画面に飛ばす
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+      // 2秒後に画面遷移をして、ログインページへ飛ばす
+    } catch (error) {
+      console.log("新規登録エラー:", error); //デベロッパーツールのコンソールにエラーを表示しています🤗
+    }
+    // この下は消さない
+  };
+
   const {
     register,
     handleSubmit,
@@ -92,7 +117,7 @@ const Signup = () => {
         </div>
 
         {/* 送信ボタン */}
-        <button type="submit" className={styles.form__btn}>
+        <button onClick={handleSignUp} type="submit" className={styles.form__btn}>
           <ArrowCircleDownIcon color="primary" />
           ログイン
         </button>
