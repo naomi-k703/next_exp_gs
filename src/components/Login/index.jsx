@@ -1,5 +1,5 @@
 // rafceと入力後　タブキーを押してください🤗
-import React from "react";
+import React,{useState} from "react";
 import styles from "./style.module.scss";
 import Link from "next/link";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
@@ -9,6 +9,9 @@ import { useRouter } from "next/navigation";
 
 const Login = () => {
   const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   //送信処理
   const handleLogin = async () => {
@@ -31,12 +34,12 @@ const Login = () => {
 
       <div className={styles.form__item}>
         <label htmlFor="">メールアドレス</label>
-        <input type="text" placeholder="メールアドレスを入力してください" />
+        <input type="text" placeholder= "メールアドレスを入力してください" onChange={(e) => setEmail(e.target.value)}/>
       </div>
 
       <div className={styles.form__item}>
         <label htmlFor="">パスワード</label>
-        <input type="text" placeholder="パスワードを入力してください" />
+        <input type="text" placeholder="パスワードを入力してください" onChange={(e) => setPassword(e.target.value)}/>
       </div>
 
       <button onClick={handleLogin} button className={styles.form__btn}>

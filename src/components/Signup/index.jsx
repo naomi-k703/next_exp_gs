@@ -10,13 +10,18 @@ const Signup = () => {
 
   const router = useRouter();
 
+  // const [username, setUsername] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+
    // 登録処理🤗
-   const handleSignUp = async () => {
+   const onSubmit = async (data) => {
+    console.log(data)
     try {
       await apiClient.post("/api/auth/register", {
-        username,
-        email, //useStateで保持しているか、react-hook-formで保持しているかどちらかになります🤗
-        password,
+        username: data.name,
+        email: data.email,
+        password: data.password
       });
 
       // 登録成功後画面をログイン画面に飛ばす
@@ -37,10 +42,10 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("送信データ:", data);
-    alert("アカウント作成処理を開始します！");
-  };
+  // const onSubmit = (data) => {
+  //   console.log("送信データ:", data);
+  //   alert("アカウント作成処理を開始します！");
+  // };
 
   // パスワードの値を取得（確認用と比較するため）
   const password = watch("password");
@@ -90,8 +95,8 @@ const Signup = () => {
             {...register("password", {
               required: "パスワードは必須です",
               minLength: {
-                value: 6,
-                message: "6文字以上のパスワードを入力してください",
+                value: 1,
+                message: "1文字以上のパスワードを入力してください",
               },
             })}
           />
@@ -117,7 +122,7 @@ const Signup = () => {
         </div>
 
         {/* 送信ボタン */}
-        <button onClick={handleSignUp} type="submit" className={styles.form__btn}>
+        <button  type="submit" className={styles.form__btn}>
           <ArrowCircleDownIcon color="primary" />
           ログイン
         </button>

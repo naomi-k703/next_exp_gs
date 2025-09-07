@@ -12,15 +12,15 @@ import apiClient from "@/lib/apiClient";
 
 
 export default function Home() {
-  const [posts,setPosts]= useState({});
+  const [posts, setPosts] = useState([]);
   const router = useRouter();
   useEffect(()=> {
 
-    // const token =localStorage.getItem("token")
-    // if(!token){
-    //   router.push("/login");
-    //   return;
-    // }
+    const token =localStorage.getItem("token")
+    if(!token){
+      router.push("/login");
+      return;
+    }
 
         // 取得の処理をこの下に書きます🤗
 
@@ -50,18 +50,17 @@ export default function Home() {
         <main className={styles.container}>
         <Header/>
 
-        <Timeline/>
+        <Timeline setPosts={setPosts}/>
 
         <div>
-          {mockData &&
-            mockData.map((item, index) => (
+          {posts &&
+            posts.map((item, index) => (
               <Post
-                key={index}
-                name={item.name}
-                date={item.date}
-                content={item.content}
-                link={item.link}
-              />
+              key={index}
+              content={item.content}
+              createdAt={item.createdAt}
+              author={item.author}
+            />
             ))}
             </div>
         

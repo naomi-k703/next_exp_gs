@@ -2,18 +2,15 @@
 import React from "react";
 import styles from "./style.module.scss";
 import Link from "next/link";
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import { Button } from "@mui/material";
 
-const Post = ({name, date, content, link}) => {
+const Post = ({ content, createdAt, author }) => {
   return (
     <div className={styles.post}>
       {/*  */}
-      <p>{name}</p>
-      <p>{date}</p>
+      <p>{new Date(createdAt).toLocaleString()}</p>
       <p>{content}</p>
-
-      <p className={styles.link}>{link}</p>
+      <p>{author.username}</p>
       {/*  */}
     </div>
   );
